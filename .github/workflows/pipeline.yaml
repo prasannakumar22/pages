@@ -30,7 +30,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: shoumyakanti/pages
-          tags: logging
+          tags: repo
   deploy-image-to-pks:
     needs: build-artifact
     runs-on: ubuntu-latest

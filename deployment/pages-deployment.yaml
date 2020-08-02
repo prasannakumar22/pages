@@ -23,7 +23,7 @@ spec:
       - name: log-volume
         emptyDir: {}
       containers:
-      - image: shoumyakanti/pages:logging
+      - image: shoumyakanti/pages:repo
         imagePullPolicy: Always
         name: pages
         ports:

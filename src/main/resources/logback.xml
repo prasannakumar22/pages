@@ -19,4 +19,4 @@
         <appender-ref ref = "FILE"/>
         <appender-ref ref = "STDOUT"/>
     </root>
-</configuration>s
+</configuration>
