@@ -8,12 +8,14 @@ spec:
   selector:
     matchLabels:
       app: mysql
+      serviceFor: pages
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         app: mysql
+        serviceFor: pages
     spec:
       containers:
         - image: mysql:8.0
@@ -41,9 +43,13 @@ kind: Service
 metadata:
   name: mysql
   namespace: shoumya
+  labels:
+    serviceFor: pages
+    app: mysql
 spec:
   ports:
     - port: 3306
   selector:
     app: mysql
-  clusterIP: None
+    serviceFor: pages
+  type: NodePort
