@@ -13,8 +13,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Build with Gradle
+      - name: Start Ubuntu MySQL
         run: sudo systemctl start mysql.service
+      - name: Build with Gradle
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: build
