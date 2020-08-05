@@ -20,10 +20,9 @@ bootRun.environment([
 
 test.environment([
 		"PAGE_CONTENT": "YellowPages",
-		"SPRING_DATASOURCE_URL": "jdbc:mysql://localhost:3306/pages?createDatabaseIfNotExist=true&useSSL=false&user=root",
+		"SPRING_DATASOURCE_URL": "jdbc:mysql://localhost:3306/pages?createDatabaseIfNotExist=true&useSSL=false&user=root&password=root",
 		"SPRING_DATASOURCE_USERNAME": "root",
 		"SPRING_DATASOURCE_PASSWORD": "root"
-
 ])
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
