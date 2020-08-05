@@ -12,10 +12,6 @@ repositories {
 }
 bootRun.environment([
 		"PAGE_CONTENT": "YellowPages",
-		"SPRING_DATASOURCE_URL": "jdbc:mysql://localhost:3306/pages?createDatabaseIfNotExist=true&useSSL=false&user=root",
-		"SPRING_DATASOURCE_USERNAME": "root",
-		"SPRING_DATASOURCE_PASSWORD": "root"
-
 ])
 
 test.environment([
