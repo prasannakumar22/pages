@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: pages
-    servicefor: pages
+    serviceFor: pages
   name: pages
   namespace: shoumya
 spec:
@@ -11,13 +11,13 @@ spec:
   selector:
     matchLabels:
       app: pages
-      servicefor: pages
+      serviceFor: pages
   strategy: {}
   template:
     metadata:
       labels:
         app: pages
-        servicefor: pages
+        serviceFor: pages
     spec:
       volumes:
       - name: log-volume
@@ -34,21 +34,28 @@ spec:
               configMapKeyRef:
                 name: pages-config-map
                 key: PAGE_CONTENT
+        - name: SPRING_DATASOURCE_URL
+          #value: jdbc:mysql://mysql/pages?useSSL=false
+          value: jdbc:mysql://pages-mysql/pages?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&user=root&password=password
+        - name: SPRING_DATASOURCE_USERNAME
+          value: root
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: password
         volumeMounts:
         - name: log-volume
           mountPath: "/var/tmp/"
-        readinessProbe:
-          tcpSocket:
-           port: 8080
-          initialDelaySeconds: 150
-          periodSeconds: 5
-          successThreshold: 2
-        livenessProbe:
-          httpGet:
-            path: /actuator/health
-            port: 8080
-          initialDelaySeconds: 150
-          periodSeconds: 5
-          successThreshold: 1
+#        readinessProbe:
+#          tcpSocket:
+#           port: 8080
+#          initialDelaySeconds: 150
+#          periodSeconds: 5
+#          successThreshold: 2
+#        livenessProbe:
+#          httpGet:
+#            path: /actuator/health
+#            port: 8080
+#          initialDelaySeconds: 150
+#          periodSeconds: 5
+#          successThreshold: 1
         resources: {}
 status: {}

@@ -3,6 +3,7 @@ kind: Service
 metadata:
   labels:
     app: pages
+    serviceFor: pages
   name: pages
   namespace: shoumya
 spec:
@@ -12,6 +13,7 @@ spec:
     targetPort: 8080
   selector:
     app: pages
+    serviceFor: pages
   type: NodePort
 status:
   loadBalancer: {}

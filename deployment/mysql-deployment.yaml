@@ -7,15 +7,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql
-      serviceFor: pages
+      app: pages
+      serviceFor: mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: mysql
-        serviceFor: pages
+      app: pages
+      serviceFor: mysql
     spec:
       containers:
         - image: mysql:8.0
@@ -27,16 +27,24 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: mysql-pass
+            - name: MYSQL_SERVICE_HOST
+              value: pages-mysql
+            - name: MYSQL_USER
+              value: root
+            - name: MYSQL_DATABASE
+              value: pages
           ports:
             - containerPort: 3306
               name: mysql
           volumeMounts:
             - name: mysql-storage
-              mountPath: "/var/lib/mysql-shoumya"
+              mountPath: /-entrypoint-initdb.d
+              #mountPath: "/var/lib/mysql-shoumya"
       volumes:
         - name: mysql-storage
-          persistentVolumeClaim:
-            claimName: mysql-volume-claim-shoumya
+          emptyDir: {}
+          #persistentVolumeClaim:
+           # claimName: mysql-volume-claim-shoumya
 ---
 apiVersion: v1
 kind: Service
@@ -44,12 +52,12 @@ metadata:
   name: mysql
   namespace: shoumya
   labels:
-    serviceFor: pages
-    app: mysql
+    serviceFor: mysql
+    app: pages
 spec:
   ports:
     - port: 3306
   selector:
-    app: mysql
-    serviceFor: pages
+    app: pages
+    serviceFor: mysql
   type: NodePort

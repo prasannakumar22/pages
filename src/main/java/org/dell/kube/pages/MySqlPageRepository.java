@@ -1,5 +1,6 @@
 package org.dell.kube.pages;
 
+import org.slf4j.ILoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -86,16 +87,29 @@ public class MySqlPageRepository implements IPageRepository {
             (rs) -> rs.next() ? mapper.mapRow(rs, 1) : null;
 
     private void init(){
-        jdbcTemplate.execute("create table if not exists pages(\n" +
-                "  id bigint(20) not null auto_increment,\n" +
-                "  business_name VARCHAR(50),\n" +
-                "  address VARCHAR(50),\n" +
-                "  category_id bigint(20),\n" +
-                "  contact_number VARCHAR(50),\n" +
-                "\n" +
-                "  primary key (id)\n" +
-                ")\n" +
-                "engine = innodb\n" +
-                "default charset = utf8;");
+        try {
+            jdbcTemplate.execute("create table if not exists pages(\n" +
+                    "  id bigint(20) not null auto_increment,\n" +
+                    "  business_name VARCHAR(50),\n" +
+                    "  address VARCHAR(50),\n" +
+                    "  category_id bigint(20),\n" +
+                    "  contact_number VARCHAR(50),\n" +
+                    "\n" +
+                    "  primary key (id)\n" +
+                    ")\n" +
+                    "engine = innodb\n" +
+                    "default charset = utf8;");
+        }
+        catch(Exception ex)
+        {
+            System.out.println("------------------ERROR----------------------");
+            System.out.println("EXCEPTION: " + ex.getMessage());
+            System.out.println("------------------ERROR----------------------");
+
+            System.out.println("------------------STACK TRACE----------------------");
+            ex.printStackTrace();
+            System.out.println("------------------STACK TRACE----------------------");
+
+        }
     }
 }
